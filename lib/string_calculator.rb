@@ -8,6 +8,10 @@ class StringCalculator
     else
       numbers = string.split(/[,\n]/).map(&:to_i)
     end
+    negatives = numbers.select { |n| n < 0 }
+    if negatives.any?
+      raise ArgumentError, "Negatives not allowed: #{negatives.first}"
+    end
     numbers.sum
   end
 end
