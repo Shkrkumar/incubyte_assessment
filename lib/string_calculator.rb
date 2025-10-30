@@ -1,7 +1,13 @@
 class StringCalculator
   def add(string)
     return 0 if string.empty?
-    numbers = string.split(/[,\n]/).map(&:to_i)
+    if string.start_with?('//')
+      delimiter, numbers_part = string.split("\n", 2)
+      custom_delimiter = delimiter[2..-1]
+      numbers = numbers_part.split(custom_delimiter).map(&:to_i)
+    else
+      numbers = string.split(/[,\n]/).map(&:to_i)
+    end
     numbers.sum
   end
 end
